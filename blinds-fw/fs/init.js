@@ -177,6 +177,9 @@ function updateState(newStateDown, newStateUp) {
     if (stateDown === STATE_OFF && stateUp === STATE_OFF) {
       updateOutput(POWER_OFF, direction);
     }
+    else if (stateDown === STATE_ON && stateUp === STATE_ON) {
+      updateOutput(POWER_OFF, direction);
+    }
     else if (direction === DIR_DOWN && stateDown === STATE_OFF && stateUp === STATE_ON) {
       updateOutput(POWER_ON, DIR_UP);
     }
