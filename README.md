@@ -7,5 +7,6 @@ I am currently planning to build the following controllers:
 - **Thermostat controller**: To switch on/off my heater according to the desired temperature.
 - **Bathroom extractor controller**: To control the air extraction from the bathroom according to the humidity and certain time restrictions.
 
-This time I will use ESP8266 and Mongoose-OS as the base for the controllers.
+This time I will use [ESP8266](https://www.espressif.com/en/products/hardware/esp8266ex/overview) and [Mongoose-OS](https://mongoose-os.com/) as the base for the controllers.
+
 The setup for the base station will be very similar to that of my first project (see [this](https://github.com/chris-zen/energy-monitoring/wiki/Base-station) for further information).
