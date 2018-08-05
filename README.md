@@ -10,3 +10,7 @@ I am currently planning to build the following controllers:
 This time I will use [ESP8266](https://www.espressif.com/en/products/hardware/esp8266ex/overview) and [Mongoose-OS](https://mongoose-os.com/) as the base for the controllers.
 
 The setup for the base station will be very similar to that of my first project (see [this](https://github.com/chris-zen/energy-monitoring/wiki/Base-station) for further information).
+
+# Notes
+
+- I followed [this guide](https://jnavila.github.io/plotkicadsch/) to make Kicad projects fit nicer with git
