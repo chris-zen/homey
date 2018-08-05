@@ -1,0 +1,44 @@
+author: Christian
+description: Automation for the blinds
+version: 0.1.0
+
+# Used by the mos tool to catch mos binaries incompatible with this file format
+manifest_version: 2017-09-29
+
+libs_version: ${mos.version}
+modules_version: ${mos.version}
+mongoose_os_version: ${mos.version}
+
+platforms:
+  - "esp32"
+  - "esp8266"
+
+tags:
+  - js
+
+filesystem:
+  - fs
+
+config_schema:
+  - ["debug.level", 3]
+  - ["dns_sd.enable", true]
+  - ["dns_sd.host_name", "blinds-??????"]
+  - ["app", "o", {title: "App settings"}]
+  - ["app.pins", "o", {title: "Selected pins"}]
+  - ["app.pins.engine_power", "i", 14, {title: "Engine power pin"}]
+  - ["app.pins.engine_dir", "i", 12, {title: "Engine up/down pin"}]
+  - ["app.pins.driver_enable", "i", 13, {title: "Engine driver enable pin"}]
+  - ["app.pins.switch_up", "i", 5, {title: "Switch up pin"}]
+  - ["app.pins.switch_down", "i", 4, {title: "Switch down pin"}]
+
+libs:
+  - origin: https://github.com/mongoose-os-libs/mjs
+  # - origin: https://github.com/mongoose-os-libs/dht
+  - origin: https://github.com/mongoose-os-libs/dns-sd
+  - origin: https://github.com/mongoose-os-libs/ca-bundle
+  - origin: https://github.com/mongoose-os-libs/http-server
+  - origin: https://github.com/mongoose-os-libs/rpc-service-config
+  - origin: https://github.com/mongoose-os-libs/rpc-service-fs
+  - origin: https://github.com/mongoose-os-libs/rpc-uart
+  - origin: https://github.com/mongoose-os-libs/wifi
+

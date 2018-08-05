@@ -1,0 +1,59 @@
+# Blinds controller
+
+## Overview
+
+This is the firmware for the blinds controller. It allows to control the blinds' motor for going up or down, either from physical switches (up/down buttons), or remotely through RPC commands.
+
+## Building and flashing
+
+This is a Mongoose OS application, so for details on how to configure, build and flash you can take a look to the [documentation](https://mongoose-os.com/docs/README.md).
+
+I typically run the following commands:
+
+```bash
+mos build --local --platform esp8266 --verbose
+mos flash
+mos wifi <SSID> <PWD>
+mos console
+```
+
+## RPC commands
+
+Those are the available RPC commands:
+
+- **Blinds.Down** <state>: Enable/disable the blinds' motor going down. *<state>* can be either 0 or 1, where 0 means disable, and 1 enable.
+- **Blinds.Up** <state>: Enable/disable the blinds' motor going up. *<state>* can be either 0 or 1, where 0 means disable, and 1 enable.
+- **Blinds.Off**: Stop the blinds' motor.
+- **Blinds.State**: Return the internal state as a JSON.
+
+Examples of commands:
+
+```bash
+mos --port ws://blinds-2B8286.local/rpc call Blinds.Up 1
+mos --port ws://blinds-2B8286.local/rpc call Blinds.Up 0
+mos --port ws://blinds-2B8286.local/rpc call Blinds.Down 1
+mos --port ws://blinds-2B8286.local/rpc call Blinds.Off
+mos --port ws://blinds-2B8286.local/rpc call Blinds.State
+```
+
+## Internal state
+
+The controller deals with two different interfaces:
+- The physical switches (up and down)
+- The internal relays that control the motor
+
+The software is modeled using state machines through code. There is the state machine that represents its state as two independent switches up and down, which output is the desired state for the relays (power and direction). Then there is another state machine to materialise the desired output state into transitions for the relays (to avoid specific cases in which both the power and the direction change at the same time, and ensure the order in which those relays change state).
+
+### The physical switches
+
+Typically for blinds there are two switches, one for lifting the blinds, and another one for bringing them down. It is possible to have both of them switched on, but the controller has to guarantee that the power goes only to one of the two possible inputs for the motor at the same time. In the case of this project this is guaranteed at hardware level, because of how the realys are connected. That way, we avoid to screw up the blinds' motor if there is a failure in the software.
+
+The internal state for the switches can also be changed remotely using RPC commands, and the controller will deal with those two sources (the physical switches and the remote commands) nicely, as it acts on events comming from them. The last one to send an event will mandate what the next output will be.
+
+### The relays controlling the motor
+
+There are two relays:
+- The power relay: controls whether there is power going to the motor or not.
+- The direction relay: controls whether the power will go into the up or down input for the motor.
+
+The hardware design uses polarized bistable relays drived by an stepping motor. The reason to use bistable relays is that it only needs to drive power to the relays during state transitions (during a few milliseconds), lowering the consumption, and keeping the state even when the controller looses the power.

@@ -1,0 +1,21 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP IRM-02-3.3
+D 3.3V 2W miniature AC-DC module-type power supply MeanWell
+K 3.3V 2W miniature AC-DC module-type power supply
+F http://www.meanwell.com/productPdf.aspx?i=675
+$ENDCMP
+#
+$CMP LM1909MC
+D Stepping Motor Driver IC
+K Motor Driver
+F http://www.farnell.com/datasheets/1759705.pdf
+$ENDCMP
+#
+$CMP VTX-214-006
+D 6W AC-DC converter 3.3V
+K 3.3V 6W AC-DC power supply
+F http://www.farnell.com/datasheets/1960104.pdf
+$ENDCMP
+#
+#End Doc Library
