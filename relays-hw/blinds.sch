@@ -2,13 +2,11 @@ EESchema Schematic File Version 2
 LIBS:custom
 LIBS:ESP8266
 LIBS:w_relay
-LIBS:conn
+LIBS:blinds-cache
 LIBS:Connector_Generic_MountingPin
 LIBS:Connector_Generic_Shielded
 LIBS:Connector_Generic
 LIBS:Connector
-LIBS:Converter_ACDC
-LIBS:modules
 LIBS:power
 LIBS:powerint
 LIBS:Reference_Current
@@ -67,7 +65,7 @@ U 1 1 5B296D31
 P 3100 2000
 F 0 "U2" H 2800 2350 50  0000 L CNN
 F 1 "LB1909MC" H 2800 1650 50  0000 L CNN
-F 2 "footprints:LB1909MC_W" H 3100 1450 50  0001 C CNN
+F 2 "footprints:LB1909MC" H 3100 1450 50  0001 C CNN
 F 3 "" H 2800 2350 50  0001 C CNN
 	1    3100 2000
 	1    0    0    -1  
@@ -110,8 +108,6 @@ F 3 "" H 7800 2350 50  0001 C CNN
 	1    7800 2350
 	1    0    0    -1  
 $EndComp
-Text Label 6100 1000 0    60   ~ 0
-VCC
 $Comp
 L R R4
 U 1 1 5B2AC4E5
@@ -123,8 +119,6 @@ F 3 "" H 9250 2300 50  0001 C CNN
 	1    9250 2300
 	-1   0    0    1   
 $EndComp
-Text Label 9350 2050 0    60   ~ 0
-VCC
 Text Label 8700 2050 0    60   ~ 0
 TXD
 Text Label 8700 2150 0    60   ~ 0
@@ -166,12 +160,9 @@ Wire Wire Line
 Wire Wire Line
 	6600 2250 6900 2250
 Wire Wire Line
-	8700 2450 9550 2450
-Wire Wire Line
 	8700 2050 8950 2050
 Wire Wire Line
 	8700 2150 8950 2150
-Connection ~ 9250 2450
 Wire Wire Line
 	6900 2350 6650 2350
 Wire Wire Line
@@ -181,17 +172,9 @@ Wire Wire Line
 Wire Wire Line
 	6900 2650 6650 2650
 Wire Wire Line
-	7750 3250 7750 3500
-Wire Wire Line
-	7850 3250 7850 3500
-Wire Wire Line
 	8700 2250 8950 2250
 Wire Wire Line
 	8700 2350 8950 2350
-Text Label 7750 3500 1    60   ~ 0
-GPIO9
-Text Label 7850 3500 1    60   ~ 0
-GPIO10
 Text Label 8700 2250 0    60   ~ 0
 GPIO5
 Text Label 8700 2350 0    60   ~ 0
@@ -199,7 +182,7 @@ GPIO4
 Text Label 8700 2450 0    60   ~ 0
 GPIO0
 Text Label 6650 2350 0    60   ~ 0
-WOES
+GPIO16
 Text Label 6650 2450 0    60   ~ 0
 GPIO14
 Text Label 6650 2550 0    60   ~ 0
@@ -209,13 +192,13 @@ GPIO13
 $Comp
 L R R1
 U 1 1 5B2D695A
-P 6600 1900
-F 0 "R1" V 6680 1900 50  0000 C CNN
-F 1 "1k" V 6600 1900 50  0000 C CNN
-F 2 "Resistors_SMD:R_0805_HandSoldering" V 6530 1900 50  0001 C CNN
-F 3 "" H 6600 1900 50  0001 C CNN
-	1    6600 1900
-	-1   0    0    1   
+P 6450 2050
+F 0 "R1" V 6530 2050 50  0000 C CNN
+F 1 "10k" V 6450 2050 50  0000 C CNN
+F 2 "Resistors_SMD:R_0805_HandSoldering" V 6380 2050 50  0001 C CNN
+F 3 "" H 6450 2050 50  0001 C CNN
+	1    6450 2050
+	0    -1   -1   0   
 $EndComp
 $Comp
 L R R3
@@ -231,10 +214,8 @@ $EndComp
 Wire Wire Line
 	6900 2050 6600 2050
 Wire Wire Line
-	6300 1000 6300 2750
+	6300 1600 6300 2750
 Connection ~ 6300 2250
-Text Label 9350 3250 0    60   ~ 0
-GND
 $Comp
 L R R5
 U 1 1 5B2D6ED4
@@ -247,13 +228,9 @@ F 3 "" H 9250 2800 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 Wire Wire Line
-	9250 2150 9250 2050
-Wire Wire Line
-	9250 2050 9550 2050
+	9250 1600 9250 2150
 Wire Wire Line
 	8700 2650 9250 2650
-Wire Wire Line
-	8700 2750 8700 3250
 Wire Wire Line
 	9150 4550 8850 4550
 Wire Wire Line
@@ -263,7 +240,7 @@ Wire Wire Line
 Wire Wire Line
 	9150 4200 8850 4200
 Text Label 8850 4650 0    60   ~ 0
-DTR
+CH_PD
 Text Label 8850 4000 0    60   ~ 0
 RXD
 Text Label 8850 3900 0    60   ~ 0
@@ -271,15 +248,9 @@ TXD
 Text Label 8850 4200 0    60   ~ 0
 VCC
 Text Label 8850 4550 0    60   ~ 0
-CTS
+GPIO0
 Text Label 8850 4300 0    60   ~ 0
 GND
-Text Label 6650 2050 0    60   ~ 0
-DTR
-Text Label 9350 2450 0    60   ~ 0
-CTS
-Wire Wire Line
-	8700 3250 9550 3250
 $Comp
 L C C1
 U 1 1 5B2D7E4F
@@ -293,32 +264,6 @@ F 3 "" H 6300 2900 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	6300 3050 6300 3200
-Wire Wire Line
-	6300 3200 6100 3200
-Text Label 6100 3200 0    60   ~ 0
-GND
-Wire Wire Line
-	9250 2950 9250 3250
-Connection ~ 9250 3250
-$Comp
-L Conn_01x03 J4
-U 1 1 5B2D8A84
-P 8300 4100
-F 0 "J4" H 8300 4300 50  0000 C CNN
-F 1 "SWITCH" H 8300 3900 50  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x03_Pitch2.54mm" H 8300 4100 50  0001 C CNN
-F 3 "" H 8300 4100 50  0001 C CNN
-	1    8300 4100
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	8100 4000 7750 4000
-Wire Wire Line
-	8100 4100 7750 4100
-Wire Wire Line
-	8100 4200 7750 4200
-Text Label 7750 4000 0    60   ~ 0
-VCC
 $Comp
 L Screw_Terminal_01x03 J7
 U 1 1 5B2FB0D6
@@ -375,10 +320,6 @@ Wire Wire Line
 	3200 5800 3000 5800
 Wire Wire Line
 	3000 5800 3000 5850
-Text Label 7750 4200 0    60   ~ 0
-GPIO10
-Text Label 7750 4100 0    60   ~ 0
-GPIO9
 Wire Wire Line
 	2300 2950 2750 2950
 Wire Wire Line
@@ -408,14 +349,14 @@ GND
 Wire Wire Line
 	8700 2550 8950 2550
 Text Label 8700 2550 0    60   ~ 0
-LED
+INT_LED
 Connection ~ 9250 2650
 $Comp
 L Conn_01x01 J11
 U 1 1 5B300109
 P 9350 4650
 F 0 "J11" H 9350 4750 50  0000 C CNN
-F 1 "DTR" H 9350 4550 50  0000 C CNN
+F 1 "CH_PD" H 9350 4550 50  0000 C CNN
 F 2 "Pin_Headers:Pin_Header_Straight_1x01_Pitch2.54mm" H 9350 4650 50  0001 C CNN
 F 3 "" H 9350 4650 50  0001 C CNN
 	1    9350 4650
@@ -437,7 +378,7 @@ L Conn_01x01 J8
 U 1 1 5B3003EE
 P 9350 4550
 F 0 "J8" H 9350 4650 50  0000 C CNN
-F 1 "CTS" H 9350 4450 50  0000 C CNN
+F 1 "GPIO0" H 9350 4450 50  0000 C CNN
 F 2 "Pin_Headers:Pin_Header_Straight_1x01_Pitch2.54mm" H 9350 4550 50  0001 C CNN
 F 3 "" H 9350 4550 50  0001 C CNN
 	1    9350 4550
@@ -478,34 +419,11 @@ GPIO5
 Text Label 7750 4650 0    60   ~ 0
 GPIO4
 $Comp
-L R R2
-U 1 1 5B315448
-P 6600 1500
-F 0 "R2" V 6680 1500 50  0000 C CNN
-F 1 "1k" V 6600 1500 50  0000 C CNN
-F 2 "Resistors_SMD:R_0805_HandSoldering" V 6530 1500 50  0001 C CNN
-F 3 "" H 6600 1500 50  0001 C CNN
-	1    6600 1500
-	-1   0    0    1   
-$EndComp
-Wire Wire Line
-	6600 1750 6600 1650
-Wire Wire Line
-	6100 1000 6600 1000
-Wire Wire Line
-	6600 1000 6600 1350
-Connection ~ 6300 1000
-Wire Wire Line
-	6600 1700 6900 1700
-Connection ~ 6600 1700
-Text Label 6650 1700 0    60   ~ 0
-WOES
-$Comp
 L C C2
 U 1 1 5B315EA7
 P 1600 1950
 F 0 "C2" H 1625 2050 50  0000 L CNN
-F 1 "100nF" H 1625 1850 50  0000 L CNN
+F 1 "100uF" H 1625 1850 50  0000 L CNN
 F 2 "Capacitors_SMD:C_0805_HandSoldering" H 1638 1800 50  0001 C CNN
 F 3 "" H 1600 1950 50  0001 C CNN
 	1    1600 1950
@@ -533,4 +451,79 @@ F 3 "" H 1600 2100 50  0001 C CNN
 	1    1600 2100
 	1    0    0    -1  
 $EndComp
+Connection ~ 6300 2050
+Text Label 6650 2250 0    60   ~ 0
+CH_PD
+Text Label 8700 2650 0    60   ~ 0
+GPIO15
+Text Label 6650 2050 0    60   ~ 0
+RESET
+Wire Wire Line
+	8700 2450 9250 2450
+$Comp
+L Conn_01x01 J3
+U 1 1 5B61D4A9
+P 9350 4750
+F 0 "J3" H 9350 4850 50  0000 C CNN
+F 1 "CH_PD" H 9350 4650 50  0000 C CNN
+F 2 "Pin_Headers:Pin_Header_Straight_1x01_Pitch2.54mm" H 9350 4750 50  0001 C CNN
+F 3 "" H 9350 4750 50  0001 C CNN
+	1    9350 4750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9150 4750 8850 4750
+Text Label 8850 4750 0    60   ~ 0
+RESET
+$Comp
+L GND #PWR?
+U 1 1 5B678C47
+P 6300 3200
+F 0 "#PWR?" H 6300 2950 50  0001 C CNN
+F 1 "GND" H 6300 3050 50  0000 C CNN
+F 2 "" H 6300 3200 50  0001 C CNN
+F 3 "" H 6300 3200 50  0001 C CNN
+	1    6300 3200
+	1    0    0    -1  
+$EndComp
+$Comp
+L VCC #PWR?
+U 1 1 5B678D1D
+P 6300 1600
+F 0 "#PWR?" H 6300 1450 50  0001 C CNN
+F 1 "VCC" H 6300 1750 50  0000 C CNN
+F 2 "" H 6300 1600 50  0001 C CNN
+F 3 "" H 6300 1600 50  0001 C CNN
+	1    6300 1600
+	1    0    0    -1  
+$EndComp
+$Comp
+L VCC #PWR?
+U 1 1 5B678E86
+P 9250 1600
+F 0 "#PWR?" H 9250 1450 50  0001 C CNN
+F 1 "VCC" H 9250 1750 50  0000 C CNN
+F 2 "" H 9250 1600 50  0001 C CNN
+F 3 "" H 9250 1600 50  0001 C CNN
+	1    9250 1600
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR?
+U 1 1 5B678F62
+P 9250 3200
+F 0 "#PWR?" H 9250 2950 50  0001 C CNN
+F 1 "GND" H 9250 3050 50  0000 C CNN
+F 2 "" H 9250 3200 50  0001 C CNN
+F 3 "" H 9250 3200 50  0001 C CNN
+	1    9250 3200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9250 2950 9250 3200
+Wire Wire Line
+	8700 2750 8700 3100
+Wire Wire Line
+	8700 3100 9250 3100
+Connection ~ 9250 3100
 $EndSCHEMATC
