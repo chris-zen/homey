@@ -209,28 +209,24 @@ initSwitches();
 
 print("Registering RPC handlers ...");
 
-RPC.addHandler('Blinds.Down', function(newStateDown) {
-  if (isValidState(newStateDown) && newStateDown !== stateDown) {
-    updateState(newStateDown, stateUp);
-  }
+RPC.addHandler('Blinds.Down', function() {
+  updateState(STATE_ON, STATE_OFF);
   return currentState();
 });
 
-RPC.addHandler('Blinds.Up', function(newStateUp) {
-  if (isValidState(newStateUp) && newStateUp !== stateUp) {
-    updateState(stateDown, newStateUp);
-  }
+RPC.addHandler('Blinds.Up', function() {
+  updateState(STATE_OFF, STATE_ON);
   return currentState();
 });
 
-RPC.addHandler('Blinds.Off', function(args) {
+RPC.addHandler('Blinds.Off', function() {
   if (stateDown === STATE_ON || stateUp === STATE_ON) {
     updateState(STATE_OFF, STATE_OFF);
   }
   return currentState();
 });
 
-RPC.addHandler('Blinds.State', function(args) {
+RPC.addHandler('Blinds.State', function() {
   return currentState();
 });
 
