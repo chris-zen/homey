@@ -134,16 +134,22 @@ function updateOutput(newPower, newDirection) {
         ') --> (Power:', powerLabel(newPower),
         ', Direction:', directionLabel(newDirection), ')');
 
-  // Make sure we change one relay at a time, and respect certain priorities
+  // Make sure we change the relays following some rules
 
   while (power !== newPower || direction !== newDirection) {
     if (power !== newPower && direction !== newDirection) {
+      // Make sure that only one relay changes state at a time
+      // and that the direction changes before the power goes on
       if (newPower === POWER_ON) {
         direction = newDirection;
       }
       else if (newPower === POWER_OFF) {
         power = newPower;
       }
+    }
+    else if (power === POWER_ON && direction !== newDirection) {
+      // Prevent the direction relay from changing while the power is on
+      power = POWER_OFF;
     }
     else {
       power = newPower;
