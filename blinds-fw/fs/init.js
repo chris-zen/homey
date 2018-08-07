@@ -128,6 +128,31 @@ function initSwitches() {
   GPIO.enable_int(switchDownPin);
 }
 
+// RPC calls -------------------------------------------------------------------------------
+
+print("Registering RPC handlers ...");
+
+RPC.addHandler('Blinds.Down', function() {
+  updateState(STATE_ON, STATE_OFF);
+  return currentState();
+});
+
+RPC.addHandler('Blinds.Up', function() {
+  updateState(STATE_OFF, STATE_ON);
+  return currentState();
+});
+
+RPC.addHandler('Blinds.Off', function() {
+  if (stateDown === STATE_ON || stateUp === STATE_ON) {
+    updateState(STATE_OFF, STATE_OFF);
+  }
+  return currentState();
+});
+
+RPC.addHandler('Blinds.State', function() {
+  return currentState();
+});
+
 // Blinds logic ----------------------------------------------------------------------------
 
 function powerLabel(power) {
@@ -222,27 +247,4 @@ function currentState() {
 
 initDriver();
 initSwitches();
-
-print("Registering RPC handlers ...");
-
-RPC.addHandler('Blinds.Down', function() {
-  updateState(STATE_ON, STATE_OFF);
-  return currentState();
-});
-
-RPC.addHandler('Blinds.Up', function() {
-  updateState(STATE_OFF, STATE_ON);
-  return currentState();
-});
-
-RPC.addHandler('Blinds.Off', function() {
-  if (stateDown === STATE_ON || stateUp === STATE_ON) {
-    updateState(STATE_OFF, STATE_OFF);
-  }
-  return currentState();
-});
-
-RPC.addHandler('Blinds.State', function() {
-  return currentState();
-});
-
+initRpcCalls();
