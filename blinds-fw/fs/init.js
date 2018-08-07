@@ -27,6 +27,11 @@ let direction = DIR_UP;
 let stateDown = STATE_OFF;
 let stateUp = STATE_OFF;
 
+// Switches state
+
+let switchDown = 1;
+let switchUp = 1;
+
 // Pins configuration
 
 let enginePowerPin = Cfg.get('app.pins.engine_power');
@@ -84,9 +89,8 @@ function setDriver(powerInput, directionInput) {
 
 // Switches --------------------------------------------------------------------------------
 
-function set_button_handler(pin, cb) {
-  GPIO.set_button_handler(pin, GPIO.PULL_UP, GPIO.INT_EDGE_NEG, 50, cb, null);
-  GPIO.set_button_handler(pin, GPIO.PULL_UP, GPIO.INT_EDGE_POS, 50, cb, null);
+function stateFromSwitchValue(switchValue) {
+  return switchValue === 0 ? STATE_ON : STATE_OFF;
 }
 
 function initSwitches() {
@@ -98,23 +102,29 @@ function initSwitches() {
   GPIO.set_pull(switchUpPin, GPIO.PULL_UP);
   GPIO.set_mode(switchUpPin, GPIO.MODE_INPUT);
   GPIO.set_int_handler(switchUpPin, GPIO.INT_EDGE_ANY, function(pin, userdata) {
-    let newStateUp = GPIO.read(pin) === 0 ? STATE_ON : STATE_OFF;
-    print("[Switch] Up:", stateLabel(newStateUp), ', Pin:', pin);
-    if (newStateUp !== stateUp) {
+    let pinValue = GPIO.read(pin);
+    if (pinValue !== switchUp) {
+      switchUp = pinValue;
+      let newStateUp = stateFromSwitchValue(pinValue);
+      print("[Switch] Up:", stateLabel(newStateUp), ', Pin:', pin, ', Value:', pinValue);
       updateState(stateDown, newStateUp);
     }
   }, null);
+  switchUp = GPIO.read(switchUpPin);
   GPIO.enable_int(switchUpPin);
 
   GPIO.set_pull(switchDownPin, GPIO.PULL_UP);
   GPIO.set_mode(switchDownPin, GPIO.MODE_INPUT);
   GPIO.set_int_handler(switchDownPin, GPIO.INT_EDGE_ANY, function(pin, userdata) {
-    let newStateDown = GPIO.read(pin) === 0 ? STATE_ON : STATE_OFF;
-    print("[Switch] Down:", stateLabel(newStateDown), ', Pin:', pin);
-    if (newStateDown !== stateDown) {
+    let pinValue = GPIO.read(pin);
+    if (pinValue !== switchDown) {
+      switchDown = pinValue;
+      let newStateDown = stateFromSwitchValue(pinValue);
+      print("[Switch] Down:", stateLabel(newStateDown), ', Pin:', pin, ', Value:', pinValue);
       updateState(newStateDown, stateUp);
     }
   }, null);
+  switchDown = GPIO.read(switchDownPin);
   GPIO.enable_int(switchDownPin);
 }
 
