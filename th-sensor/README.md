@@ -11,7 +11,10 @@ This is a portable device that will allow:
 
 ## Hardware
 
-*Comming soon*
+I am just doing the research for the components that will be used for the hardware design:
+
+- [Bosch BME280](https://www.bosch-sensortec.com/bst/products/all_products/bme280): Temperature, relative humidity and barometric pressure.
+- [Bosch BME680](https://www.bosch-sensortec.com/bst/products/all_products/bme680): Temperature, relative humidity, barometric pressure and volatile organic componds to measure air quality.
 
 ## Firmware
 
