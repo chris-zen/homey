@@ -29,6 +29,6 @@ For the time being, the hardware is very similar to that of the blinds controlle
 
 ## Roadmap
 
-- [] Install an MQTT broker in the base station
-- [] Heater controller hardware and basic firmware
-- [] Advanced temperature control firmware
+- [ ] Install an MQTT broker in the base station
+- [ ] Heater controller hardware and basic firmware
+- [ ] Advanced temperature control firmware
