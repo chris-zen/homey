@@ -4,6 +4,8 @@
 
 This is the firmware for the blinds controller. It allows to control the blinds' motor for going up or down, either from physical switches (up/down buttons), or remotely through RPC commands.
 
+The hardware can be found [here](../relays-hw) as `blinds.*`.
+
 ## Building and flashing
 
 This is a Mongoose OS application, so for details on how to configure, build and flash you can take a look to its [documentation](https://mongoose-os.com/docs/README.md).

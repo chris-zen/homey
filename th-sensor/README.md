@@ -23,9 +23,9 @@ This is a portable device that will allow:
 
 ## Roadmap
 
-[] Install an MQTT broker in the base station
-[] TH sensing and MQTT publishing (hardware and firmware)
-[] Mozilla Thing (TH parameters and actions to control the target temperature for the heater)
-[] OLED screen integration and TH visualization
-[] Touch controls to adjust target temperature
-[] Advanced heater programs configuration
+- [] Install an MQTT broker in the base station
+- [] TH sensing and MQTT publishing (hardware and firmware)
+- [] Mozilla Thing (TH parameters and actions to control the target temperature for the heater)
+- [] OLED screen integration and TH visualization
+- [] Touch controls to adjust target temperature
+- [] Advanced heater programs configuration
