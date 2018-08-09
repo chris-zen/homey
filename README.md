@@ -3,9 +3,10 @@
 This is my second round on building devices for my Smart Home (see [this other project](https://github.com/chris-zen/energy-monitoring) for my first attempt to build an energy monitoring system).
 
 I am currently planning to build the following controllers:
-- **Blinds controller**: To bring up and down the blinds remotely. \[[hardware](relays-hw)\] \[[firmware](blinds-fw)\].
-- **Thermostat controller**: To switch on/off my heater according to the desired temperature.
-- **Bathroom extractor controller**: To control the air extraction from the bathroom according to the humidity and certain time restrictions.
+- [Blinds controller](blinds): To bring up and down the blinds remotely.
+- [Temperature and humidity sensors](th-sensor): To measure internal and external temperature and humidity, and provide a portable user interface.
+- [Heater controller](heater): To switch on/off my heater according to the desired temperature, the current internal and external temperature and humidity, and other parameters.
+- [Bathroom extractor controller](air-extractor): To control the bathroom air extractor according to presence, the humidity and time restrictions.
 
 This time I will use [ESP8266](https://www.espressif.com/en/products/hardware/esp8266ex/overview) and [Mongoose-OS](https://mongoose-os.com/) as the base for the controllers.
 
@@ -14,6 +15,7 @@ I was planning to have a similar setup for my base station as for my previous pr
 # Media
 
 - [Building my blinds controller](https://photos.app.goo.gl/Czdh2BhWPQBsjujQ9)
+- [How I failed to build my first blinds controller](https://aloneinthehack.wordpress.com/2018/08/08/how-did-i-fail-to-build-my-first-blinds-controller/)
 
 # Notes
 

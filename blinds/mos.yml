@@ -2,9 +2,6 @@ author: Christian
 description: Automation for the blinds
 version: 0.1.0
 
-# Used by the mos tool to catch mos binaries incompatible with this file format
-manifest_version: 2017-09-29
-
 libs_version: ${mos.version}
 modules_version: ${mos.version}
 mongoose_os_version: ${mos.version}
@@ -21,6 +18,11 @@ filesystem:
 
 config_schema:
   - ["debug.level", 3]
+  - ["mqtt.enable", true]
+  # - ["mqtt.server", "my_server:1883"]
+  # - ["mqtt.ssl_ca_cert", "ca.pem"]
+  # - ["mqtt.ssl_cert", "client_cert.pem"]
+  # - ["mqtt.ssl_key", "private_key.pem"]
   - ["dns_sd.enable", true]
   - ["dns_sd.host_name", "blinds-??????"]
   - ["app", "o", {title: "App settings"}]
@@ -41,4 +43,7 @@ libs:
   - origin: https://github.com/mongoose-os-libs/rpc-service-fs
   - origin: https://github.com/mongoose-os-libs/rpc-uart
   - origin: https://github.com/mongoose-os-libs/wifi
+  # - origin: https://github.com/mongoose-os-libs/mqtt
 
+# Used by the mos tool to catch mos binaries incompatible with this file format
+manifest_version: 2017-09-29

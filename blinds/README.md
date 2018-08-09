@@ -21,19 +21,24 @@ mos console
 
 This controller provides the following RPC commands:
 
-- **Blinds.Down** <state>: Enable/disable the blinds' motor going down. *<state>* can be either 0 or 1, where 0 means disable, and 1 enable.
-- **Blinds.Up** <state>: Enable/disable the blinds' motor going up. *<state>* can be either 0 or 1, where 0 means disable, and 1 enable.
+- **Blinds.Down**: Trigger the blinds' motor to go down.
+- **Blinds.Up**: Trigger the blinds' motor to go up.
 - **Blinds.Off**: Stop the blinds' motor.
 - **Blinds.State**: Return the internal state as a JSON.
 
 Examples of commands:
 
 ```bash
-mos --port ws://blinds-2B8286.local/rpc call Blinds.Up 1
-mos --port ws://blinds-2B8286.local/rpc call Blinds.Up 0
-mos --port ws://blinds-2B8286.local/rpc call Blinds.Down 1
+mos --port ws://blinds-2B8286.local/rpc call Blinds.Up
+mos --port ws://blinds-2B8286.local/rpc call Blinds.Down
 mos --port ws://blinds-2B8286.local/rpc call Blinds.Off
 mos --port ws://blinds-2B8286.local/rpc call Blinds.State
+```
+
+To know the DNS of the device you can use the following command:
+
+```bash
+dns-sd -B
 ```
 
 ## Internal state
