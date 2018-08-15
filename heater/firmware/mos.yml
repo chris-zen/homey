@@ -1,0 +1,63 @@
+author: Christian
+description: Heater controller
+version: 0.1.0
+
+libs_version: ${mos.version}
+modules_version: ${mos.version}
+mongoose_os_version: ${mos.version}
+
+platforms:
+  - "esp8266"
+
+tags:
+  - heater
+  - thermostat
+
+filesystem:
+  - fs
+
+config_schema:
+  - ["debug.level", 3]
+  
+  - ["mqtt.enable", true]
+  - ["mqtt.server", "gateway:1883"]
+  # - ["mqtt.ssl_ca_cert", "ca.pem"]
+  # - ["mqtt.ssl_cert", "client_cert.pem"]
+  # - ["mqtt.ssl_key", "private_key.pem"]
+
+  - ["dns_sd.enable", true]
+  - ["dns_sd.host_name", "heater-??????"]
+  
+  - ["app", "o", {title: "App config"}]
+  
+  - ["app.heater", "o", {title: "Heater config"}]
+  - ["app.heater.driver_enable_pin", "i", 13, {title: "Relay driver enable pin"}]
+  - ["app.heater.driver_input_pin", "i", 14, {title: "Relay driver input pin"}]
+
+  - ["app.ths", "o", {title: "Thermostat config"}]
+  - ["app.ths.update_period_ms", "i", 60000, {title: "Controller update period"}]
+  - ["app.ths.hysteresis_up", "d", 0.0, {title: "Hysteresis threshold when going up"}]
+  - ["app.ths.hysteresis_down", "d", 0.5, {title: "Hysteresis threshold when going down"}]
+  - ["app.ths.temperature_presets", "o", {title: "Thermostat temperature presets"}]
+  - ["app.ths.temperature_presets.comfort", "d", 24.0, {title: "Comfort temperature"}]
+  - ["app.ths.temperature_presets.energy_saving", "d", 19.0, {title: "Energy saving temperature"}]
+  - ["app.ths.temperature_presets.frost_protection", "d", 12.0, {title: "Frost protection temperature"}]
+  
+  - ["app.mqtt", "o", {title: "MQTT config"}]
+  - ["app.mqtt.topic_prefix", "s", "sensors", {title: "sensors topic prefix"}]
+  - ["app.mqtt.internal_sensor_id", "s", "internal", {title: "internal sensor id"}]
+  - ["app.mqtt.external_sensor_id", "s", "external", {title: "external sensor id"}]
+
+libs:
+  - origin: https://github.com/mongoose-os-libs/wifi
+  - origin: https://github.com/mongoose-os-libs/dns-sd
+  - origin: https://github.com/mongoose-os-libs/mqtt
+  - origin: https://github.com/mongoose-os-libs/ca-bundle
+  - origin: https://github.com/mongoose-os-libs/http-server
+  - origin: https://github.com/mongoose-os-libs/rpc-service-config
+  - origin: https://github.com/mongoose-os-libs/rpc-service-fs
+  - origin: https://github.com/mongoose-os-libs/rpc-uart
+  - origin: https://github.com/mongoose-os-libs/mjs
+
+# Used by the mos tool to catch mos binaries incompatible with this file format
+manifest_version: 2017-09-29
