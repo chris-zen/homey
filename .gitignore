@@ -3,3 +3,6 @@ deps/
 node_modules/
 package-lock.json
 _autosave-*.kicad_pcb
+
+.vscode
+*.code-workspace
