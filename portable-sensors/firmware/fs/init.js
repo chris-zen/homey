@@ -24,10 +24,10 @@ function sensorsData() {
   let h = dht.getHumidity();
 
   let data = {
-    t: !isNaN(t) ? t : null,  // Temperature
-    h: !isNaN(h) ? h : null,  // Humidity
-    p: null,                  // Barometric pressure
-    g: null                   // Gas / VOC / Air-Quality
+    t: !isNaN(t) ? t : undefined,  // Temperature
+    h: !isNaN(h) ? h : undefined,  // Humidity
+    p: undefined,                  // Barometric pressure
+    g: undefined                   // Gas / VOC / Air-Quality
   };
 
   return data;
