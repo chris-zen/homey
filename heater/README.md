@@ -2,36 +2,20 @@
 
 ## Overview
 
-This is a temperature controller that allows to switch on or off the heater according to some parameters such as:
-- target temperature: the desired temperature to achieve.
-- current temperature: as received from the sensors (external and internal).
-- other technical parameters (hysteresis, ...)
-
-This is how it will interact with other components in the Smart Home system:
-
-```
-Mozilla Thing & Web UI ---> |------|
-Internal sensors ---------> | MQTT | -----> Heater controller -----> Heater relay
-External sensors ---------> |------|
-```
+This is a heater controller that allows to switch on or off the heater relay.
 
 ## Hardware
 
-For the time being, the hardware is very similar to that of the blinds controller, but instead of using two relays, it only requires one.
+For the time being, the hardware is very similar to that of the [blinds](../blinds) controller, but instead of using two relays, it only requires one.
 
 ## Firmware
 
-The initial implementation for the Thermostat is a simple On/Off control with hysteresis (aka deadband in the next figure).
+The firmware subscribes to an MQTT topic with the target status for the relay. It will apply some rules to protect the heater:
 
-![ON/OFF Control](https://www.eurotherm.com/image/data/pid-control/PID-Control-fig1-fig2.jpg)
-
-## Mozilla Thing
-
-*Comming soon*
+- Changes to the relay state can only happen after a certain amount of time (to avoid fast state changes that might damage the heater).
+- If the target status is not received for a certain amount of time, switch off the heater. The thermostat could be down, and keeping the heater on forever would be dangerous and/or inefficient.
 
 ## Roadmap
 
-- [x] Install an MQTT broker in the base station
-- [x] Heater controller hardware and basic firmware (on/off control with histeresis)
-- [ ] Web of Things interface
-- [ ] Advanced temperature control firmware (PID controller)
+- [x] Heater controller hardware
+- [ ] Firmware
