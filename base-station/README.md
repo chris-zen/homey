@@ -55,5 +55,6 @@ My attempt to enable resolving mDNS .local devices through a DNS server on the R
 - [x] Mozilla Things Gateway flashing
 - [x] Docker installation
 - [x] Basic MQTT server installation
+- [ ] Create a Docker compose with all the required docker apps (MQTT, thermostat) 
 - [ ] Basic analytics setup (influxdb or prometheus + capturing signals)
 - [ ] TLS for MQTT
