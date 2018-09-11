@@ -6,3 +6,5 @@ _autosave-*.kicad_pcb
 
 .vscode
 *.code-workspace
+
+.DS_Store
