@@ -32,6 +32,17 @@ docker run -ti --detach --restart unless-stopped --name mosquitto \
            -p 1883:1883 -p 9001:9001 pascaldevink/rpi-mosquitto
 ```
 
+## Start thermostat
+
+```
+docker run -ti --detach --restart unless-stopped --name thermostat \
+           --net=host \
+           -e MQTT_URL=mqtt://192.168.1.64:1883 \
+           -e UI_HREF_URL=http://192.168.1.64:9000/index.html \
+           -e "DEBUG=thermostat:*,express:*" \
+           chriszen/homey-thermostat:0.1.0-armhf
+```
+
 # Web of Things notes
 
 - Site: https://iot.mozilla.org/
@@ -55,6 +66,6 @@ My attempt to enable resolving mDNS .local devices through a DNS server on the R
 - [x] Mozilla Things Gateway flashing
 - [x] Docker installation
 - [x] Basic MQTT server installation
-- [ ] Create a Docker compose with all the required docker apps (MQTT, thermostat) 
+- [ ] Create a Docker compose with all the required docker apps (MQTT, thermostat)
 - [ ] Basic analytics setup (influxdb or prometheus + capturing signals)
 - [ ] TLS for MQTT
