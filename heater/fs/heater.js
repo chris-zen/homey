@@ -48,7 +48,25 @@ let Heater = {
     isOn: function() {
       return this.getLevel() === Heater.ON_LEVEL;
     },
-    
+
+    status: function() {
+      let now = Timer.now();
+      let on = this.isOn();
+      let value = on ? Heater.ON_STATUS : Heater.OFF_STATUS;
+      return {
+        on: on,
+        value: value,
+        now: now,
+        targetAge: now - this.targetTimestamp,
+        targetTimestamp: this.targetTimestamp,
+        maxTargetAge: this.maxTargetAgeSec,
+        updateAge: now - (this.switchTimestamp || - this.minUpdateAgeSec),
+        switchTimestamp: this.switchTimestamp,
+        minUpdateAge: this.minUpdateAgeSec,
+        switchAllowed: this.switchAllowed()
+      };
+    },
+
     switchTarget: function(target) {
       if (target === Heater.ON_STATUS) {
         this.switchOn();
@@ -88,7 +106,7 @@ let Heater = {
     getLabel: function(level) {
       return level === Heater.ON_LEVEL ? "ON" : "OFF";
     },
-    
+
     getLevel: function() {
       return GPIO.read(this.driverInputPin);
     },
@@ -99,9 +117,9 @@ let Heater = {
         return;
       }
 
-      if (this.switchAllowed()) { 
+      if (this.switchAllowed()) {
         Log.info('Switching heater ' + this.getLabel(level));
-      
+
         GPIO.write(this.driverEnablePin, 0);
         GPIO.write(this.driverInputPin, level);
         GPIO.write(this.driverEnablePin, 1);
@@ -111,7 +129,7 @@ let Heater = {
         this.switchTimestamp = Timer.now();
 
         if (this.listener !== undefined) {
-          this.listener(this.isOn() ? Heater.ON_STATUS : Heater.OFF_STATUS);
+          this.listener(this.status());
         }
       }
     },
