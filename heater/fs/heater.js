@@ -117,7 +117,7 @@ let Heater = {
         return;
       }
 
-      if (this.switchAllowed()) {
+      if (this.switchAllowed(level)) {
         Log.info('Switching heater ' + this.getLabel(level));
 
         GPIO.write(this.driverEnablePin, 0);
@@ -134,7 +134,7 @@ let Heater = {
       }
     },
 
-    switchAllowed: function() {
+    switchAllowed: function(level) {
       let now = Timer.now();
       let updateAge = now - (this.switchTimestamp || - this.minUpdateAgeSec);
       if (updateAge >= this.minUpdateAgeSec) {

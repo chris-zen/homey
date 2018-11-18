@@ -28,6 +28,19 @@ The heater status will be published to the following MQTT topics:
 - `Heater.Off`: Switch off the heater.
 - `Heater.Status`: Return the heater internal status.
 
+### Building and flashing
+
+This is a Mongoose OS application, so for details on how to configure, build and flash you can take a look to its [documentation](https://mongoose-os.com/docs/README.md).
+
+I typically run the following commands:
+
+```bash
+mos build --local --platform esp8266 --verbose
+mos flash
+mos wifi <SSID> <PWD>
+mos console
+```
+
 ## Roadmap
 
 - [x] Heater controller hardware
